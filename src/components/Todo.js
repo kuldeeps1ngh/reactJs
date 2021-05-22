@@ -1,6 +1,15 @@
+import { useState } from 'react';
+
+import Modal from './Modal';
+import Backdrop from './Backdrop';
+
 function Todo(props) {
+    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    function closeModalHandler() {
+        setModalIsOpen(false);
+    }
     function handleDelete() {
-        console.log('clicked', props.title);
+        setModalIsOpen(true);
     }
     return (
         <div className='card'>
@@ -8,6 +17,9 @@ function Todo(props) {
             <div className='actions'>
                 <button className='btn' onClick={handleDelete}>Delete</button>
             </div>
+            {modalIsOpen && <Modal onCancel={closeModalHandler} onConfirm={closeModalHandler} />}
+            {modalIsOpen && <Backdrop onCancel={closeModalHandler} />}
+            
         </div>
     )
 }
